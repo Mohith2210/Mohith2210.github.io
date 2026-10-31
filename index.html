@@ -86,7 +86,7 @@ h3{font:400 clamp(32px,4.6vw,60px)/1 var(--serif);letter-spacing:-.01em}
 .copy p{margin-bottom:14px;color:#3b3e37;max-width:54ch}
 .copy .lead{font:400 24px/1.3 var(--serif);color:var(--ink)}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:14px 20px;margin:22px 0 6px}
-.stats b{display:block;font:400 38px/1 var(--serif);color:var(--ink)}
+.stats b{display:block;white-space:nowrap;font:400 clamp(26px,3vw,38px)/1 var(--serif);color:var(--ink)}
 .stats span{font:500 10.5px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--mute)}
 .lnk{display:inline-block;margin-top:8px;font-size:14px;text-decoration:none;border-bottom:1px solid var(--clay);padding-bottom:1px}
 .lnk:hover{color:var(--clay)}
@@ -98,6 +98,7 @@ figcaption{font:400 11.5px/1.5 var(--mono);color:var(--mute);margin-top:12px;let
 figcaption b{color:var(--clay);font-weight:500}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .photos{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.vis figure img.gen{mix-blend-mode:normal;border-radius:2px}
 .vis .photos img{aspect-ratio:1/1;object-fit:cover;width:100%;mix-blend-mode:normal;border-radius:2px}
 .arch{display:grid;grid-template-columns:5fr 4fr;gap:16px;align-items:center}
 .sticky{position:sticky;top:84px;align-self:start}
@@ -341,9 +342,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           </dl>
           <p class="lead">Make microservice autoscaling respond to cold starts and traffic spikes.</p>
           <p>A configurable per-service resource broker that drives two Kubernetes mechanisms: the Horizontal Pod Autoscaler for pods and the Cluster Autoscaler for nodes.</p>
+          <div class="stats">
+            <div><b>80&rarr;70%</b><span>Avg CPU use</span></div>
+            <div><b>60&rarr;10 s</b><span>Scaling response</span></div>
+            <div><b>95&rarr;99%</b><span>Uptime</span></div>
+          </div>
+          <p class="na">As reported in the paper for an e-commerce demo app on AWS. The 15% energy and 200 kg CO2 savings are the paper's estimates.</p>
           <a class="lnk" href="https://github.com/Mohith2210/Project-Reports/blob/main/Microservices_change.pdf" rel="noopener">Read the report (PDF)</a>
         </div>
         <div class="vis rv">
+          <figure>
+            <img src="img/gm-component.webp" width="811" height="878" loading="lazy" alt="Component diagram: Docker engine builds three e-commerce containers deployed in pods, managed by an event-driven autoscaler resource broker that uses EC2 instances and S3 storage">
+            <figcaption><b>Component diagram</b> from the paper: containers, pods, the event-driven resource broker, and the AWS resources it uses.</figcaption>
+          </figure>
+          <figure>
+            <img src="img/gm-results.webp" class="gen" width="1500" height="485" loading="lazy" alt="Bar charts comparing CPU use, uptime, response time and scaling response with and without the resource broker">
+            <figcaption><b>Reported results.</b> Plotted from the paper's Tables I and II.</figcaption>
+          </figure>
           <figure class="dg">
             <svg viewBox="0 0 640 290" role="img" aria-label="Conceptual architecture: traffic enters a resource broker which drives the Horizontal Pod Autoscaler and the Cluster Autoscaler">
               <rect class="box" x="8" y="118" width="138" height="52" rx="3"/><text x="77" y="140" text-anchor="middle">Traffic</text><text class="m" x="77" y="157" text-anchor="middle" style="font-size:10px">spikes, cold starts</text>
@@ -371,14 +386,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
             <dt>Status</dt><dd>Repository not yet public</dd>
           </dl>
           <p class="lead">A weed detector accurate enough to be useful and small enough for the edge.</p>
-          <p>Hybrid architectures that fuse a Swin Transformer backbone with CBAM-style attention on YOLOv9, then an ablation across fusion strategies, trained on field photographs of weeds.</p>
+          <p>Hybrid architectures that fuse a Swin Transformer backbone with CBAM-style attention on YOLOv9, then an ablation across fusion strategies, trained and evaluated on the public CottonWeedDet12 dataset.</p>
           <div class="stats">
             <div><b>0.855</b><span>Precision</span></div>
             <div><b>0.855</b><span>mAP@0.50</span></div>
             <div><b>3.56M</b><span>Parameters</span></div>
             <div><b>15.6</b><span>GFLOPs</span></div>
           </div>
-          <p class="na">Headline figures are for the best configuration in the report.</p>
+          <p class="na">Figures are the report's stated optimal model, CBAM || Swin, after 200 epochs: precision 0.855, recall 0.785, mAP@0.50:0.95 0.785.</p>
         </div>
         <div class="vis rv">
           <figure>
@@ -389,7 +404,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
               <img src="img/field-4.webp" width="311" height="312" loading="lazy" alt="Weed with broad green leaves among crop residue">
               <img src="img/field-6.webp" width="311" height="312" loading="lazy" alt="Leafy weed on dry ground">
             </div>
-            <figcaption><b>Dataset.</b> Field photographs from the project's own dataset. These are inputs, not model output.</figcaption>
+            <figcaption><b>Dataset.</b> Sample images from CottonWeedDet12, the public cotton-field weed dataset the model was trained on. These are inputs, not model output.</figcaption>
           </figure>
           <figure>
             <div class="arch">
@@ -399,8 +414,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
             <figcaption><b>Architecture.</b> The attention block and the full network, as drawn in the report.</figcaption>
           </figure>
           <figure>
+            <img src="img/weed-results.webp" class="gen" width="1500" height="584" loading="lazy" alt="Bar charts of mAP at 0.50: four baseline YOLO variants, and three attention modules fused with Swin Transformer at 100 and 200 epochs">
+            <figcaption><b>Results.</b> mAP@0.50 plotted from the report's tables. Left: baselines at 384 px. Right: attention fused with Swin, 100 against 200 epochs. Axes start at 0.60.</figcaption>
+          </figure>
+          <figure>
             <img src="img/weed-curves.webp" width="1400" height="700" loading="lazy" alt="Ten training-curve plots over 100 epochs: box, class and DFL losses, precision, recall, mAP50 and mAP50-95">
-            <figcaption><b>Training curves.</b> Ultralytics logs from one of the report's runs over 100 epochs. Final values may differ from the headline configuration.</figcaption>
+            <figcaption><b>Training curves.</b> Ultralytics logs from one of the report's 100-epoch runs, so final values sit below the 200-epoch headline.</figcaption>
           </figure>
         </div>
       </div>
@@ -434,16 +453,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
             <img src="img/kn-pipeline.webp" width="941" height="445" loading="lazy" alt="Pipeline: prepare dataset, convert to log-mel spectrograms, fine-tune Whisper, evaluate with WER and CER">
             <figcaption><b>Pipeline.</b> From dataset preparation through log-mel features and fine-tuning to evaluation, as in the paper.</figcaption>
           </figure>
-          <div class="two">
-            <figure>
-              <img src="img/kn-wer.webp" width="1167" height="594" loading="lazy" alt="Bar chart of word error rate per domain, pretrained versus fine-tuned">
-              <figcaption><b>WER by domain,</b> pretrained against fine-tuned. Not every domain improves.</figcaption>
-            </figure>
-            <figure>
-              <img src="img/kn-cer.webp" width="777" height="406" loading="lazy" alt="Bar chart of character error rate per domain, pretrained versus fine-tuned">
-              <figcaption><b>CER by domain,</b> same comparison.</figcaption>
-            </figure>
-          </div>
+          <figure>
+            <img src="img/kn-overall.webp" class="gen" width="1500" height="720" loading="lazy" alt="Bar charts of word and character error rate before and after fine-tuning, all domains pooled">
+            <figcaption><b>Before and after.</b> Medium-Vistaar, all five domains pooled, plotted from the paper's Tables IV and V: WER 0.3325 to 0.0958, CER 0.0691 to 0.0321.</figcaption>
+          </figure>
           <div class="three">
             <figure><img src="img/kn-gender.webp" width="365" height="350" loading="lazy" alt="Pie chart of speaker gender distribution"><figcaption>Speaker gender</figcaption></figure>
             <figure><img src="img/kn-age.webp" width="531" height="419" loading="lazy" alt="Bar chart of speaker age ranges"><figcaption>Age range</figcaption></figure>
