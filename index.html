@@ -3,468 +3,529 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mohith Krishna V | Engineer, Bengaluru</title>
+<title>Mohith Krishna V | Where did the packet go?</title>
 <meta name="description" content="Mohith Krishna V is an engineer in Bengaluru working across networking, cloud infrastructure and software. Currently at Juniper Networks / HPE on the Mist platform.">
 <link rel="canonical" href="https://mohith2210.github.io/">
-<meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#151513" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#07080c">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mohith2210.github.io/">
-<meta property="og:title" content="Mohith Krishna V | Engineer, Bengaluru">
+<meta property="og:title" content="Mohith Krishna V | Where did the packet go?">
 <meta property="og:description" content="Engineer working at the intersection of networking, infrastructure and software.">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Mohith Krishna V","url":"https://mohith2210.github.io/","jobTitle":"Software Engineer","worksFor":{"@type":"Organization","name":"Juniper Networks (HPE)"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"alumniOf":"Amrita Vishwa Vidyapeetham","sameAs":["https://github.com/Mohith2210","https://linkedin.com/in/mohith-krishna-v"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Direction: an independent studio's printed folio. Ivory paper, near-black ink, one muted blue. Serif for voice, sans for information. Hairlines instead of cards. */
+/* Direction: a packet trace. A dark opening with a living signal landscape, then a loud cream folio of big serif type, pinned diagrams and a hop counter that follows the reader down the page. */
 :root {
-  --paper: #f3efe6;
-  --paper2: #ebe6da;
-  --ink: #1c1b18;
-  --muted: #6a665d;
-  --rule: #d4cdbd;
-  --accent: #2f4d6e;
-  --serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --sans: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --gut: clamp(16px, 4vw, 48px);
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #151513; --paper2: #1c1c19; --ink: #ece7dc; --muted: #a49f93; --rule: #34322d; --accent: #9db8d6;
-    color-scheme: dark;
-  }
+  --night: #07080c; --night2: #0e1016; --cream: #f6f3ea; --cream2: #ece8dc; --ink: #14120e;
+  --hot: #ff4b2b; --hot-ink: #c2300f; --mut-l: #6a6559; --mut-d: #a2a1b0; --rule-l: #d8d2c2; --rule-d: #23242e;
+  --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --gut: clamp(18px, 4vw, 56px);
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0; background: var(--paper); color: var(--ink);
-  font: 400 17px/1.6 var(--sans);
-  padding-left: max(var(--gut), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--gut), env(safe-area-inset-right, 0px));
-  padding-block: 0;
-}
-::selection { background: var(--accent); color: var(--paper); }
-a { color: inherit; text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent); text-underline-offset: 4px; text-decoration-thickness: 1px; transition: text-decoration-color .25s, color .25s; }
-a:hover { color: var(--accent); text-decoration-color: currentColor; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
-.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--paper); padding: 10px 14px; z-index: 100; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; -webkit-text-size-adjust: 100%; background: var(--night); }
+body { margin: 0; background: var(--cream); color: var(--ink); font: 400 clamp(17px, 1.3vw, 19px)/1.6 var(--serif); overflow-x: hidden; }
+::selection { background: var(--hot); color: #fff; }
+a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--hot); outline-offset: 4px; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--hot); color: #fff; padding: 10px 14px; z-index: 100; font: 500 14px var(--mono); }
 .skip:focus { left: 12px; }
-.wrap { max-width: 1240px; margin: 0 auto; }
-.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 28px); }
-.label { font: 500 12px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.wrap { width: 100%; max-width: 1360px; margin: 0 auto; padding-left: max(var(--gut), env(safe-area-inset-left, 0px)); padding-right: max(var(--gut), env(safe-area-inset-right, 0px)); }
+.tag { font: 500 12px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
 
-/* navigation: hides when reading down, returns when reading up */
-.bar { position: sticky; top: 0; z-index: 40; margin: 0 calc(-1 * max(var(--gut), env(safe-area-inset-left, 0px))); padding: 0 max(var(--gut), env(safe-area-inset-right, 0px)) 0 max(var(--gut), env(safe-area-inset-left, 0px)); background: color-mix(in srgb, var(--paper) 92%, transparent); border-bottom: 1px solid transparent; transition: transform .35s ease, border-color .3s; }
-.bar.scrolled { border-bottom-color: var(--rule); }
-.bar.hide { transform: translateY(-100%); }
-.bar .wrap { display: flex; justify-content: space-between; align-items: center; height: 64px; gap: 20px; }
-.bar .id { font: 400 22px/1 var(--serif); text-decoration: none; letter-spacing: -.01em; }
-.bar nav { display: flex; gap: clamp(14px, 2.6vw, 34px); font-size: 14.5px; }
-.bar nav a { text-decoration: none; color: var(--muted); padding: 6px 0; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s, color .25s; }
-.bar nav a:hover, .bar nav a[aria-current="true"] { color: var(--ink); background-size: 100% 1px; }
-@media (max-width: 640px) { .bar nav a.opt { display: none; } }
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 100vh; min-height: 100svh; background: var(--night); color: #fff; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; isolation: isolate; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; display: block; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(7,8,12,.85) 0%, rgba(7,8,12,0) 28%, rgba(7,8,12,0) 52%, rgba(7,8,12,.92) 100%); pointer-events: none; }
+.hero-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 22px; padding-bottom: 12px; }
+.wm { font: 900 18px/1 var(--display); letter-spacing: -.02em; text-decoration: none; color: #fff; }
+.keys { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.keys a { display: inline-flex; gap: 8px; align-items: center; text-decoration: none; font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mut-d); background: rgba(255,255,255,.07); padding: 9px 11px; border-radius: 4px; transition: background .2s, color .2s; }
+.keys a kbd { font: inherit; color: #fff; }
+.keys a:hover { background: var(--hot); color: #fff; }
+.hero-main { align-self: center; padding-top: clamp(10px, 4vh, 40px); transform: translateY(calc(var(--p, 0) * -9vh)); opacity: calc(1 - var(--p, 0) * 1.1); will-change: transform, opacity; }
+.status { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 clamp(14px, 3vh, 28px); color: #fff; }
+.status::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--hot); box-shadow: 0 0 0 0 rgba(255,75,43,.6); animation: pulse 2.4s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 12px rgba(255,75,43,0); } 100% { box-shadow: 0 0 0 0 rgba(255,75,43,0); } }
+h1 { margin: 0; font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: .94; letter-spacing: -.04em; }
+h1 .n1 { display: block; font-size: clamp(54px, 15.2vw, 250px); }
+h1 .n2 { display: block; font-size: clamp(34px, 9.5vw, 158px); color: var(--hot); margin-top: .06em; }
+.hero-foot { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(18px, 4vw, 64px); align-items: end; padding-top: 24px; padding-bottom: clamp(26px, 5vh, 56px); }
+.q { margin: 0; font: italic 500 clamp(28px, 4.1vw, 64px)/1.02 var(--serif); letter-spacing: -.02em; }
+.d { margin: 0; font-size: clamp(16px, 1.25vw, 19px); color: #d4d3dc; max-width: 34em; }
+.d b { color: #fff; font-weight: 600; }
+.scrollcue { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); color: var(--mut-d); }
 
-/* hero */
-.hero { padding: clamp(40px, 8vw, 110px) 0 clamp(48px, 7vw, 96px); row-gap: clamp(22px, 3vw, 40px); }
-.hero .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
-.hero .meta span { font-size: 14px; color: var(--muted); }
-.status { display: inline-flex; align-items: center; gap: 9px; color: var(--ink) !important; }
-.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-h1 { grid-column: 1 / span 8; margin: 0; font: 400 clamp(68px, 13.4vw, 184px)/.86 var(--serif); letter-spacing: -.035em; }
-h1 em { display: block; color: var(--accent); padding-left: .55em; }
-.contours { grid-column: 9 / -1; grid-row: 2 / span 2; align-self: start; margin: 0; }
-.contours svg { width: 100%; height: auto; display: block; }
-.contours figcaption { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
-.intro { grid-column: 1 / span 7; margin-top: clamp(8px, 2vw, 28px); }
-.intro p.lead { font: 400 clamp(26px, 3.4vw, 44px)/1.18 var(--serif); letter-spacing: -.01em; margin: 0 0 22px; max-width: 22em; text-wrap: balance; }
-.intro p.sub { margin: 0; max-width: 34em; color: var(--muted); }
-.draw path, .draw ellipse { stroke-dasharray: 1; stroke-dashoffset: 0; }
-.js .draw ellipse { stroke-dashoffset: 1; animation: draw 2.4s cubic-bezier(.3,.6,.2,1) forwards; }
-.js .draw ellipse:nth-child(2) { animation-delay: .12s; } .js .draw ellipse:nth-child(3) { animation-delay: .24s; } .js .draw ellipse:nth-child(4) { animation-delay: .36s; }
-.js .draw ellipse:nth-child(5) { animation-delay: .48s; } .js .draw ellipse:nth-child(6) { animation-delay: .6s; } .js .draw ellipse:nth-child(7) { animation-delay: .72s; } .js .draw ellipse:nth-child(8) { animation-delay: .84s; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
+/* ---------- ticker ---------- */
+.ticker { background: var(--hot); color: #fff; overflow: hidden; border-block: 1px solid rgba(0,0,0,.2); }
+.ticker div { display: flex; width: max-content; animation: slide 34s linear infinite; }
+.ticker span { font: 900 clamp(22px, 3vw, 40px)/1 var(--display); text-transform: uppercase; letter-spacing: -.02em; padding: 18px 30px; white-space: nowrap; }
+.ticker span::after { content: "\2192"; margin-left: 30px; opacity: .6; }
+@keyframes slide { to { transform: translateX(-50%); } }
 
-/* section scaffold */
-section { border-top: 1px solid var(--rule); padding: clamp(48px, 7vw, 96px) 0; }
-.sec > aside { grid-column: 1 / span 3; padding-bottom: 28px; }
-.sec > .main { grid-column: 4 / -1; min-width: 0; }
-h2 { font: 400 clamp(34px, 4.4vw, 56px)/1.04 var(--serif); letter-spacing: -.02em; margin: 0 0 clamp(26px, 4vw, 52px); max-width: 16em; text-wrap: balance; }
-h2 em { color: var(--accent); }
-aside .label { position: sticky; top: 92px; }
+/* ---------- cream sections ---------- */
+section.cream { background: var(--cream); padding: clamp(70px, 11vw, 170px) 0; position: relative; }
+section.cream + section.cream { border-top: 1px solid var(--rule-l); }
+.sh { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: clamp(36px, 6vw, 90px); }
+.sh .tag { color: var(--hot-ink); }
+h2 { margin: 0; font: 700 clamp(46px, 8.6vw, 148px)/.92 var(--serif); letter-spacing: -.045em; max-width: 12em; text-wrap: balance; }
+h2 em { font-style: italic; font-weight: 500; color: var(--hot-ink); }
 
-/* selected work */
-.work { display: grid; gap: clamp(46px, 7vw, 92px); }
-.proj { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: clamp(20px, 3vw, 44px); align-items: start; padding-top: clamp(28px, 4vw, 48px); border-top: 1px solid var(--rule); }
-.proj:first-child { border-top: 0; padding-top: 0; }
-.proj:nth-child(even) .fig { order: -1; }
-.proj .ctx { font-size: 13px; color: var(--muted); margin: 0 0 12px; letter-spacing: .02em; }
-.proj h3 { font: 400 clamp(30px, 3.6vw, 46px)/1.06 var(--serif); letter-spacing: -.015em; margin: 0 0 20px; text-wrap: balance; }
-.proj dl { margin: 0 0 18px; }
-.proj dt { font: 500 11.5px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 14px 0 4px; }
-.proj dd { margin: 0; font-size: 16.5px; }
-.stack { font-size: 13.5px; color: var(--muted); margin: 0 0 14px; }
-.links { display: flex; gap: 22px; flex-wrap: wrap; font-size: 15px; margin: 0; }
-.links span { color: var(--muted); }
-.fig { margin: 0; }
-.fig .frame { border: 1px solid var(--rule); background: var(--paper2); aspect-ratio: 8 / 5; display: grid; place-items: center; }
-.fig svg { width: 100%; height: 100%; display: block; }
-.fig figcaption { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
-svg .t { font: 500 12px var(--sans); fill: var(--ink); }
-svg .m { font: 400 11px var(--sans); fill: var(--muted); }
-svg .a { stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-svg .i { stroke: var(--ink); fill: none; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
-svg .r { stroke: var(--rule); fill: none; stroke-width: 1; }
-svg .fillp { fill: var(--paper); }
-svg .fa { fill: var(--accent); }
-svg .big { font: 400 26px var(--serif); fill: var(--ink); }
+/* work: each project pins its diagram while you read it */
+.proj { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(14px, 2.4vw, 36px); padding: clamp(36px, 5vw, 70px) 0; border-top: 1px solid var(--ink); min-height: 88vh; }
+.proj .txt { grid-column: 1 / span 6; align-self: start; padding-bottom: 6vh; }
+.proj .fig { grid-column: 8 / -1; align-self: start; position: sticky; top: 9vh; margin: 0; }
+.proj:nth-of-type(even) .txt { grid-column: 7 / -1; grid-row: 1; }
+.proj:nth-of-type(even) .fig { grid-column: 1 / span 5; grid-row: 1; }
+.proj .ctx { color: var(--mut-l); margin: 0 0 16px; }
+.proj h3 { margin: 0 0 clamp(20px, 3vw, 36px); font: 700 clamp(38px, 5.6vw, 88px)/.95 var(--serif); letter-spacing: -.04em; text-wrap: balance; }
+.proj dl { margin: 0 0 22px; max-width: 34em; }
+.proj dt { font: 500 11.5px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--hot-ink); margin: 18px 0 6px; }
+.proj dd { margin: 0; }
+.stack { font: 400 13px/1.6 var(--mono); color: var(--mut-l); margin: 0 0 14px; }
+.links { margin: 0; font: 500 14px var(--mono); display: flex; gap: 20px; flex-wrap: wrap; }
+.links a { color: var(--ink); background: linear-gradient(var(--hot), var(--hot)) 0 100% / 100% 2px no-repeat; text-decoration: none; padding-bottom: 3px; transition: background-size .25s, color .25s; }
+.links a:hover { background-size: 100% 100%; color: #fff; }
+.links span { color: var(--mut-l); }
+.frame { background: var(--night); border-radius: 6px; aspect-ratio: 8 / 5; overflow: hidden; box-shadow: 0 30px 60px -34px rgba(0,0,0,.55); }
+.frame svg { width: 100%; height: 100%; display: block; }
+.fig figcaption { font: 400 12.5px/1.5 var(--mono); color: var(--mut-l); margin-top: 10px; }
+.frame .t { font: 500 12px var(--mono); fill: #f3f1ea; } .frame .m { font: 400 11px var(--mono); fill: var(--mut-d); }
+.frame .a { stroke: var(--hot); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.frame .i { stroke: #f3f1ea; fill: none; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.frame .r { stroke: #3a3b48; fill: none; stroke-width: 1; }
+.frame .fillp { fill: #0e1016; } .frame .big { font: 900 24px var(--display); fill: #fff; letter-spacing: -.02em; }
 
-/* index lists (college, papers) */
-.index { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
-.index li { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 8px 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--rule); }
-.index .k { font-size: 13px; color: var(--muted); }
-.index h3 { font: 400 clamp(21px, 2.2vw, 26px)/1.2 var(--serif); letter-spacing: -.005em; margin: 0 0 4px; }
-.index p { margin: 0; font-size: 15px; color: var(--muted); max-width: 46em; }
-.index .go { font-size: 14px; white-space: nowrap; }
-.index .go.na { color: var(--muted); }
+/* index lists */
+.index { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.index li { position: relative; display: grid; grid-template-columns: 190px minmax(0, 1fr) auto; gap: 8px clamp(14px, 3vw, 44px); align-items: baseline; padding: clamp(20px, 2.6vw, 34px) 0; border-bottom: 1px solid var(--ink); transition: padding .35s, background .35s, color .35s; }
+.index li::before { content: ""; position: absolute; inset: 0 calc(-1 * var(--gut)); background: var(--ink); transform: scaleY(0); transform-origin: 50% 100%; transition: transform .35s cubic-bezier(.3,.7,.2,1); z-index: 0; }
+.index li > * { position: relative; z-index: 1; transition: color .3s, transform .35s; }
+.index li:hover::before { transform: scaleY(1); }
+.index li:hover { color: var(--cream); }
+.index li:hover h3 { transform: translateX(14px); }
+.index li:hover p, .index li:hover .k { color: #b9b6a8; }
+.index .k { font: 400 12.5px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mut-l); }
+.index h3 { margin: 0 0 6px; font: 600 clamp(24px, 3.2vw, 46px)/1.02 var(--serif); letter-spacing: -.03em; text-wrap: balance; }
+.index p { margin: 0; font-size: 16.5px; color: var(--mut-l); max-width: 44em; }
+.index .go { font: 500 13px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; text-decoration: none; }
+.index a.go { color: var(--hot-ink); } .index li:hover a.go { color: var(--hot); }
+.index .go.na { color: var(--mut-l); }
+.index li:hover .go.na { color: #8f8c80; }
 
-/* about + now */
-.about p { margin: 0 0 1.1em; max-width: 36em; font-size: 18.5px; }
-.about p:first-of-type::first-line { font-variant: small-caps; letter-spacing: .04em; }
-.honours { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--rule); max-width: 36em; }
-.honours li { display: flex; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 15.5px; }
-.honours span { color: var(--muted); white-space: nowrap; }
-.now { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 3vw, 44px); }
-.now h3 { font: 500 11.5px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
-.now p { margin: 0; font-size: 16.5px; }
-.asof { margin-top: 28px; font-size: 13px; color: var(--muted); }
+/* about */
+.stmt { margin: 0 0 clamp(40px, 6vw, 80px); font: 600 clamp(30px, 5vw, 78px)/1.08 var(--serif); letter-spacing: -.035em; max-width: 21em; }
+.stmt .w { transition: opacity .25s; }
+.js .stmt .w { opacity: .16; } .js .stmt .w.on { opacity: 1; }
+.two { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 clamp(14px, 2.4vw, 36px); }
+.two > p { grid-column: 1 / span 5; margin: 0; max-width: 30em; }
+.honours { grid-column: 7 / -1; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.honours li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule-l); font-size: 17px; }
+.honours span { font: 400 12.5px/1.6 var(--mono); color: var(--mut-l); white-space: nowrap; letter-spacing: .04em; }
 
-/* contact */
-.contact .big { font: 400 clamp(34px, 7vw, 92px)/1 var(--serif); letter-spacing: -.03em; margin: 0 0 28px; overflow-wrap: anywhere; }
-.contact .big a { text-decoration-thickness: 1px; }
-.contact ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 32px; font-size: 16.5px; }
-.copy { font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 35%, transparent); padding: 0 0 2px; cursor: pointer; transition: color .25s, border-color .25s; }
-.copy:hover { color: var(--accent); border-color: currentColor; }
-footer { border-top: 1px solid var(--rule); padding: 26px 0 40px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+/* now */
+.now { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); }
+.now > div { padding: clamp(22px, 3vw, 40px) clamp(14px, 2.4vw, 36px) clamp(22px, 3vw, 40px) 0; border-right: 1px solid var(--rule-l); }
+.now > div + div { padding-left: clamp(14px, 2.4vw, 36px); }
+.now > div:last-child { border-right: 0; }
+.now h3 { margin: 0 0 14px; color: var(--hot-ink); }
+.now p { margin: 0; font-size: clamp(19px, 1.7vw, 25px); line-height: 1.3; letter-spacing: -.015em; }
+.asof { margin-top: 22px; color: var(--mut-l); font: 400 12.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
 
-/* gentle entrance, only when JS is available */
-.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
-.js .reveal.in { opacity: 1; transform: none; }
+/* ---------- contact ---------- */
+.contact { background: var(--night); color: #fff; padding: clamp(70px, 11vw, 160px) 0 0; overflow: hidden; }
+.contact .tag { color: var(--hot); }
+.contact h2 { color: #fff; margin: 18px 0 clamp(30px, 5vw, 70px); max-width: none; font-size: clamp(46px, 11vw, 190px); }
+.contact h2 em { color: var(--hot); }
+.mail { display: block; font: 700 clamp(20px, 5.6vw, 96px)/1.05 var(--display); letter-spacing: -.045em; text-decoration: none; overflow-wrap: anywhere; transition: color .25s; }
+.mail:hover { color: var(--hot); }
+.chips { list-style: none; margin: clamp(26px, 4vw, 50px) 0 0; padding: 0; display: flex; gap: 10px; flex-wrap: wrap; }
+.chips a, .chips button { display: inline-flex; gap: 10px; font: 500 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,.08); padding: 14px 16px; border-radius: 4px; border: 0; text-decoration: none; cursor: pointer; transition: background .2s; }
+.chips a:hover, .chips button:hover { background: var(--hot); }
+.contact .ticker { margin-top: clamp(60px, 9vw, 130px); background: transparent; color: var(--hot); border-block-color: var(--rule-d); }
+.contact .ticker span::after { opacity: .5; }
+footer { background: var(--night); color: var(--mut-d); }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 30px; font: 400 12.5px/1.5 var(--mono); letter-spacing: .04em; }
 
-@media (max-width: 900px) {
-  h1 { grid-column: 1 / -1; }
-  .contours { grid-column: 1 / span 6; grid-row: auto; order: 3; max-width: 340px; }
-  .intro { grid-column: 1 / -1; }
-  .sec > aside, .sec > .main { grid-column: 1 / -1; }
-  aside .label { position: static; }
-  .proj { grid-template-columns: 1fr; }
-  .proj:nth-child(even) .fig { order: 0; }
+/* hop counter */
+.hop { position: fixed; left: 14px; top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; z-index: 30; mix-blend-mode: difference; color: #fff; font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; pointer-events: none; display: flex; flex-direction: row; align-items: center; gap: 12px; }
+.hop i { display: block; width: 2px; height: 90px; background: rgba(255,255,255,.3); position: relative; }
+.hop i::after { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: calc(var(--sp, 0) * 100%); background: #fff; }
+
+/* entrances */
+.js .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+.js .rv.in { opacity: 1; transform: none; }
+
+@media (max-width: 960px) {
+  .keys a:nth-child(n+3) { display: none; }
+  .hero-foot { grid-template-columns: 1fr; }
+  .proj { grid-template-columns: 1fr; min-height: 0; }
+  .proj .txt, .proj:nth-of-type(even) .txt { grid-column: 1; grid-row: auto; padding-bottom: 28px; }
+  .proj .fig, .proj:nth-of-type(even) .fig { grid-column: 1; grid-row: auto; position: static; }
   .index li { grid-template-columns: 1fr; }
+  .two > p, .honours { grid-column: 1 / -1; }
+  .two > p { margin-bottom: 30px; }
   .now { grid-template-columns: 1fr; }
+  .now > div, .now > div + div { padding-left: 0; border-right: 0; border-bottom: 1px solid var(--rule-l); }
 }
+@media (max-width: 1100px) { .hop { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .draw ellipse { animation: none; stroke-dashoffset: 0; }
-  .js .reveal { opacity: 1; transform: none; transition: none; }
-  .bar { transition: none; }
+  .ticker div, .status::before { animation: none; }
+  .js .rv { opacity: 1; transform: none; transition: none; }
+  .js .stmt .w { opacity: 1; }
+  .hero-main { transform: none; opacity: 1; }
 }
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#work">Skip to content</a>
 
-<header class="bar" id="bar">
-  <div class="wrap">
-    <a class="id" href="#top">Mohith Krishna V</a>
-    <nav aria-label="Primary">
-      <a href="#work">Work</a><a class="opt" href="#also">Also built</a><a class="opt" href="#papers">Papers</a><a href="#about">About</a><a class="opt" href="#now">Now</a><a href="#contact">Contact</a>
+<header class="hero" id="top">
+  <canvas id="terrain" aria-hidden="true"></canvas>
+  <div class="wrap hero-top">
+    <a class="wm" href="#top" aria-label="Mohith Krishna V, top of page">MKV</a>
+    <nav class="keys" aria-label="Primary">
+      <a href="#work" aria-keyshortcuts="W"><kbd>W</kbd> Work</a>
+      <a href="#about" aria-keyshortcuts="A"><kbd>A</kbd> About</a>
+      <a href="#papers" aria-keyshortcuts="P"><kbd>P</kbd> Papers</a>
+      <a href="#contact" aria-keyshortcuts="C"><kbd>C</kbd> Contact</a>
     </nav>
   </div>
+  <div class="wrap hero-main" id="heroMain">
+    <p class="status tag">Open to software engineering roles · Bengaluru</p>
+    <h1><span class="n1">Mohith</span><span class="n2">Krishna V</span></h1>
+  </div>
+  <div class="wrap hero-foot">
+    <p class="q">Where did the packet go?</p>
+    <p class="d"><b>Engineer working at the intersection of networking, infrastructure and software.</b> I work on the Mist cloud platform at Juniper Networks, now part of HPE, and I follow faults from device firmware through Kafka and REST APIs until they make sense.</p>
+  </div>
+  <span class="scrollcue tag" aria-hidden="true">Scroll, or press W</span>
 </header>
 
-<main id="main" class="wrap">
-  <div class="hero grid" id="top">
-    <div class="meta">
-      <span class="status">Open to software engineering roles</span>
-      <span>Bengaluru, India</span>
-      <span>Juniper Networks / HPE</span>
-    </div>
+<div class="ticker" aria-hidden="true"><div>
+  <span>Networking</span><span>Infrastructure</span><span>Software</span><span>Networking</span><span>Infrastructure</span><span>Software</span>
+  <span>Networking</span><span>Infrastructure</span><span>Software</span><span>Networking</span><span>Infrastructure</span><span>Software</span>
+</div></div>
 
-    <h1>Mohith <em>Krishna V</em></h1>
+<main>
+<section id="work" class="cream" aria-labelledby="h-work" data-hop="Work">
+  <div class="wrap">
+    <div class="sh rv"><p class="tag">Selected work</p><h2 id="h-work">Five things <em>I'd point to.</em></h2></div>
 
-    <figure class="contours" aria-hidden="true">
-      <svg class="draw" viewBox="0 0 420 420" fill="none" stroke="var(--accent)" stroke-width="1.1">
-        <g transform="rotate(-18 210 210)">
-          <ellipse cx="210" cy="210" rx="196" ry="150" pathLength="1" opacity=".30"/>
-          <ellipse cx="210" cy="210" rx="168" ry="128" pathLength="1" opacity=".38"/>
-          <ellipse cx="210" cy="210" rx="140" ry="106" pathLength="1" opacity=".46"/>
-          <ellipse cx="210" cy="210" rx="112" ry="84" pathLength="1" opacity=".56"/>
-          <ellipse cx="210" cy="210" rx="84" ry="62" pathLength="1" opacity=".68"/>
-          <ellipse cx="210" cy="210" rx="56" ry="40" pathLength="1" opacity=".82"/>
-          <ellipse cx="210" cy="210" rx="28" ry="19" pathLength="1"/>
-        </g>
-        <circle cx="210" cy="210" r="3.4" fill="var(--accent)" stroke="none"/>
-      </svg>
-      <figcaption>Signal contours of a Wi-Fi survey, drawn in SVG for this page.</figcaption>
-    </figure>
-
-    <div class="intro reveal">
-      <p class="lead">Engineer working at the intersection of networking, infrastructure and software.</p>
-      <p class="sub">I work on the Mist cloud platform at Juniper Networks, now part of HPE. I trace faults from device firmware through Kafka and REST APIs, own quality for seven feature areas, and build the Python tools my team uses every day.</p>
-    </div>
-  </div>
-
-  <section id="work" class="sec grid" aria-labelledby="h-work">
-    <aside><p class="label">Selected work</p></aside>
-    <div class="main">
-      <h2 id="h-work">Five things I'd <em>point to</em>.</h2>
-      <div class="work">
-
-        <article class="proj reveal">
-          <div>
-            <p class="ctx">At work, Mist wireless · 2025 to now</p>
-            <h3>Config Wizard</h3>
-            <dl>
-              <dt>The brief</dt><dd>Recreate an access point's WLAN configuration in another Mist org or site.</dd>
-              <dt>What I built</dt><dd>A desktop tool that reads the configuration from a support bundle or live from the device, lets you review and complete each WLAN, then recreates it through the Mist REST API. It has a dry-run mode, an audit log and HTML reports, and ships as a single executable. Teams across the org adopted it.</dd>
-            </dl>
-            <p class="stack">Python, PyQt6, REST APIs, PyInstaller</p>
-            <p class="links"><span>Internal tool, not public</span></p>
-          </div>
-          <figure class="fig">
-            <div class="frame">
-              <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: a support bundle or live access point feeds a review and dry-run step, which writes to a Mist org through the REST API, with an audit log">
-                <rect class="i fillp" x="22" y="104" width="110" height="82" rx="2"/><text class="t" x="77" y="140" text-anchor="middle">Support bundle</text><text class="m" x="77" y="158" text-anchor="middle">or live AP</text>
-                <rect class="a fillp" x="185" y="104" width="110" height="82" rx="2"/><text class="t" x="240" y="140" text-anchor="middle">Review</text><text class="m" x="240" y="158" text-anchor="middle">dry run first</text>
-                <rect class="i fillp" x="348" y="104" width="110" height="82" rx="2"/><text class="t" x="403" y="140" text-anchor="middle">Mist org</text><text class="m" x="403" y="158" text-anchor="middle">via REST API</text>
-                <path class="i" d="M132 145h46m-7-5 7 5-7 5M295 145h46m-7-5 7 5-7 5"/>
-                <path class="r" d="M240 186v40" stroke-dasharray="3 4"/>
-                <rect class="r fillp" x="185" y="226" width="110" height="38" rx="2" stroke-dasharray="3 4"/><text class="m" x="240" y="249" text-anchor="middle">audit log + report</text>
-              </svg>
-            </div>
-            <figcaption>How a configuration moves, simplified.</figcaption>
-          </figure>
-        </article>
-
-        <article class="proj reveal">
-          <div>
-            <p class="ctx">At work, Mist wireless · 2025 to now</p>
-            <h3>Disaster-recovery validation</h3>
-            <dl>
-              <dt>The brief</dt><dd>Confirm that cloud failover changes behave correctly for devices in the field: the GCP Frankfurt DR migration and the AWS UAE outage failover.</dd>
-              <dt>What I did</dt><dd>Ran each change through three stages, staging, UI integration and production, and verified access-point claim behaviour along the way. Tracing connectivity and re-claim problems across the data path was most of the work.</dd>
-            </dl>
-            <p class="stack">GCP, AWS, Kafka telemetry, REST APIs, Linux</p>
-            <p class="links"><span>Internal work, not public</span></p>
-          </div>
-          <figure class="fig">
-            <div class="frame">
-              <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: a change moves through staging, UI integration and production, for two cloud providers">
-                <text class="m" x="24" y="64">GCP Frankfurt DR migration</text><text class="m" x="24" y="236">AWS UAE outage failover</text>
-                <g><circle class="a fillp" cx="64" cy="120" r="20"/><circle class="a fillp" cx="240" cy="120" r="20"/><circle class="a fillp" cx="416" cy="120" r="20"/>
-                <path class="a" d="M84 120h136M260 120h136"/>
-                <path class="a" d="M56 120l6 6 11-12M232 120l6 6 11-12M408 120l6 6 11-12"/></g>
-                <text class="t" x="64" y="164" text-anchor="middle">Staging</text><text class="t" x="240" y="164" text-anchor="middle">UI integration</text><text class="t" x="416" y="164" text-anchor="middle">Production</text>
-                <path class="r" d="M24 200h432"/>
-              </svg>
-            </div>
-            <figcaption>Each change, in the same three stages.</figcaption>
-          </figure>
-        </article>
-
-        <article class="proj reveal">
-          <div>
-            <p class="ctx">B.Tech research paper · with a team</p>
-            <h3>Green microservices on Kubernetes</h3>
-            <dl>
-              <dt>The brief</dt><dd>Make microservice autoscaling respond to cold starts and traffic spikes.</dd>
-              <dt>What we built</dt><dd>A configurable per-service resource broker that drives two Kubernetes mechanisms, the Horizontal Pod Autoscaler and the Cluster Autoscaler. I co-authored the research.</dd>
-            </dl>
-            <p class="stack">Docker, Kubernetes, HPA, Cluster Autoscaler</p>
-            <p class="links"><a href="https://github.com/Mohith2210/Project-Reports/blob/main/Microservices_change.pdf" rel="noopener">Read the report (PDF)</a></p>
-          </div>
-          <figure class="fig">
-            <div class="frame">
-              <svg viewBox="0 0 480 300" role="img" aria-label="Chart: traffic rises and falls over time while the number of pods follows it in steps">
-                <path class="r" d="M40 250h410M40 40v210"/>
-                <path class="i" d="M40 220C90 215 110 120 160 110s70 110 120 100 70-130 110-120 40 60 60 90" />
-                <path class="a" d="M40 230h70v-50h40v-70h60v60h40v50h50v-90h50v30h40v60h60" stroke-linejoin="miter"/>
-                <text class="m" x="46" y="56">traffic</text><text class="m" x="46" y="72" style="fill:var(--accent)">pods</text>
-                <text class="m" x="380" y="270">time</text>
-              </svg>
-            </div>
-            <figcaption>Illustration of the idea, not measured data.</figcaption>
-          </figure>
-        </article>
-
-        <article class="proj reveal">
-          <div>
-            <p class="ctx">B.Tech capstone · 2025</p>
-            <h3>WeedYOLO-MS</h3>
-            <dl>
-              <dt>The brief</dt><dd>A detection model accurate enough to be useful and small enough to run at the edge.</dd>
-              <dt>What I built</dt><dd>Hybrid architectures that fuse a Swin Transformer backbone with CBAM attention on YOLOv9, then an ablation across fusion strategies. The best configuration reached 0.855 precision and mAP@0.50 with 3.56M parameters and 15.6 GFLOPs.</dd>
-            </dl>
-            <p class="stack">Python, PyTorch, YOLOv9, Swin Transformer, CBAM</p>
-            <p class="links"><span>Repository not yet public</span></p>
-          </div>
-          <figure class="fig">
-            <div class="frame">
-              <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: image goes through a Swin Transformer backbone, CBAM attention and a YOLOv9 head, producing detections">
-                <rect class="i fillp" x="18" y="112" width="74" height="70" rx="2"/><text class="t" x="55" y="152" text-anchor="middle">Image</text>
-                <rect class="i fillp" x="116" y="112" width="96" height="70" rx="2"/><text class="t" x="164" y="144" text-anchor="middle">Swin</text><text class="m" x="164" y="160" text-anchor="middle">backbone</text>
-                <rect class="a fillp" x="236" y="112" width="84" height="70" rx="2"/><text class="t" x="278" y="152" text-anchor="middle">CBAM</text>
-                <rect class="i fillp" x="344" y="112" width="118" height="70" rx="2"/><text class="t" x="403" y="144" text-anchor="middle">YOLOv9 head</text><text class="m" x="403" y="160" text-anchor="middle">detections</text>
-                <path class="i" d="M92 147h18m-6-5 6 5-6 5M212 147h18m-6-5 6 5-6 5M320 147h18m-6-5 6 5-6 5"/>
-                <text class="big" x="240" y="244" text-anchor="middle">0.855 mAP@0.50</text><text class="m" x="240" y="266" text-anchor="middle">3.56M parameters · 15.6 GFLOPs</text>
-              </svg>
-            </div>
-            <figcaption>The best configuration from the ablation.</figcaption>
-          </figure>
-        </article>
-
-        <article class="proj reveal">
-          <div>
-            <p class="ctx">Research · IEEE ICCCNT 2025</p>
-            <h3>Speech recognition for Kannada</h3>
-            <dl>
-              <dt>The brief</dt><dd>Kannada is a low-resource language for speech recognition. How far can a small, carefully chosen dataset take a fine-tuned model?</dd>
-              <dt>What I did</dt><dd>Curated 465 speech samples across five domains and fine-tuned OpenAI's Whisper on them. The fine-tuned model reached a word error rate of 0.0958 and a character error rate of 0.0321.</dd>
-            </dl>
-            <p class="stack">Python, PyTorch, Whisper, Hugging Face</p>
-            <p class="links"><span>Published at IEEE ICCCNT 2025</span></p>
-          </div>
-          <figure class="fig">
-            <div class="frame">
-              <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: a speech waveform goes into a fine-tuned Whisper model and comes out as text">
-                <g class="a"><path d="M24 150v0M36 140v20M48 126v48M60 112v76M72 132v36M84 144v12M96 120v60M108 100v100M120 126v48M132 140v20M144 118v64M156 136v28M168 146v8"/></g>
-                <rect class="a fillp" x="196" y="112" width="104" height="76" rx="2"/><text class="t" x="248" y="146" text-anchor="middle">Whisper</text><text class="m" x="248" y="162" text-anchor="middle">fine-tuned</text>
-                <path class="i" d="M180 150h10m-6-5 6 5-6 5M300 150h30m-6-5 6 5-6 5"/>
-                <path class="i" d="M346 128h110M346 148h96M346 168h108"/>
-                <text class="big" x="24" y="248">WER 0.0958</text><text class="big" x="250" y="248">CER 0.0321</text>
-                <text class="m" x="24" y="270">465 samples · 5 domains</text>
-              </svg>
-            </div>
-            <figcaption>From audio to text, with the reported error rates.</figcaption>
-          </figure>
-        </article>
-
+    <article class="proj">
+      <div class="txt rv">
+        <p class="ctx tag">At work, Mist wireless · 2025 to now</p>
+        <h3>Config Wizard</h3>
+        <dl>
+          <dt>The brief</dt><dd>Recreate an access point's WLAN configuration in another Mist org or site.</dd>
+          <dt>What I built</dt><dd>A desktop tool that reads the configuration from a support bundle or live from the device, lets you review and complete each WLAN, then recreates it through the Mist REST API. It has a dry-run mode, an audit log and HTML reports, and ships as a single executable. Teams across the org adopted it.</dd>
+        </dl>
+        <p class="stack">Python · PyQt6 · REST APIs · PyInstaller</p>
+        <p class="links"><span>Internal tool, not public</span></p>
       </div>
-    </div>
-  </section>
+      <figure class="fig rv">
+        <div class="frame">
+          <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: a support bundle or live access point feeds a review and dry-run step, which writes to a Mist org through the REST API, with an audit log">
+            <rect class="i fillp" x="22" y="104" width="110" height="82" rx="2"/><text class="t" x="77" y="140" text-anchor="middle">Support bundle</text><text class="m" x="77" y="158" text-anchor="middle">or live AP</text>
+            <rect class="a fillp" x="185" y="104" width="110" height="82" rx="2"/><text class="t" x="240" y="140" text-anchor="middle">Review</text><text class="m" x="240" y="158" text-anchor="middle">dry run first</text>
+            <rect class="i fillp" x="348" y="104" width="110" height="82" rx="2"/><text class="t" x="403" y="140" text-anchor="middle">Mist org</text><text class="m" x="403" y="158" text-anchor="middle">via REST API</text>
+            <path class="i" d="M132 145h46m-7-5 7 5-7 5M295 145h46m-7-5 7 5-7 5"/>
+            <path class="r" d="M240 186v40" stroke-dasharray="3 4"/>
+            <rect class="r fillp" x="185" y="226" width="110" height="38" rx="2" stroke-dasharray="3 4"/><text class="m" x="240" y="249" text-anchor="middle">audit log + report</text>
+          </svg>
+        </div>
+        <figcaption>How a configuration moves, simplified.</figcaption>
+      </figure>
+    </article>
 
-  <section id="also" class="sec grid" aria-labelledby="h-also">
-    <aside><p class="label">Also built, at university</p></aside>
-    <div class="main">
-      <h2 id="h-also">Smaller studies, <em>same curiosity</em>.</h2>
-      <ul class="index">
-        <li><span class="k">Team project, 2024</span><div><h3>Fuzzing techniques on distributed systems</h3><p>A grey-box fuzzer with semantic and adversarial input mutation aimed at protocol and serialized-input parsing. A 36-page report.</p></div><span class="go na">Report not public</span></li>
-        <li><span class="k">Course research, 2024</span><div><h3>Ant colony routing for sensor networks</h3><p>Pheromone-based adaptive routing simulated in NS3. Paths are chosen probabilistically from RSSI, which spreads traffic and reduces packet loss compared with the shortest path.</p></div><span class="go na">Report not public</span></li>
-        <li><span class="k">Course research</span><div><h3>Real-time recommendation for microblogging</h3><p>Posts flow through Apache Kafka, are classified with ML embeddings and served from Elasticsearch.</p></div><span class="go na">Report not public</span></li>
-        <li><span class="k">Course paper</span><div><h3>Accident detection for two-wheelers with TinyML</h3><p>Raspberry Pi 5, an MPU-6050 gyroscope and accelerometer, ultrasonic sensors and GPS. TinyML flags crash-like anomalies and the location goes to a light server that alerts a phone.</p></div><span class="go na">Report not public</span></li>
-        <li><span class="k">Course paper</span><div><h3>Blockchain platforms for hospital records</h3><p>Ethereum, EOS and Skale compared on simplified hospital systems deployed to each testnet: cost, consensus, scalability, security and smart-contract support.</p></div><span class="go na">Report not public</span></li>
-        <li><span class="k">Course project</span><div><h3>Web content analysis through scraping</h3><p>Scraped many sites for UI elements, colour palettes and fonts, then visualised current design trends.</p></div><a class="go" href="https://github.com/Mohith2210/Project-Reports/blob/main/BDA_Final%20(1)%20(1).pdf" rel="noopener">Report (PDF)</a></li>
-        <li><span class="k">Research abstract</span><div><h3>Memory and input safety for CPython</h3><p>Deterministic memory management and safety guarantees for the interpreter, with an ownership model like Rust's.</p></div><span class="go na">Abstract not public</span></li>
-        <li><span class="k">Personal, 2026</span><div><h3>A job-search scanner</h3><p>Pulls postings from five public job-board APIs, then filters, de-duplicates and scores them. 102 unit tests.</p></div><span class="go na">Private repository</span></li>
-      </ul>
-    </div>
-  </section>
+    <article class="proj">
+      <div class="txt rv">
+        <p class="ctx tag">At work, Mist wireless · 2025 to now</p>
+        <h3>Disaster-recovery validation</h3>
+        <dl>
+          <dt>The brief</dt><dd>Confirm that cloud failover changes behave correctly for devices in the field: the GCP Frankfurt DR migration and the AWS UAE outage failover.</dd>
+          <dt>What I did</dt><dd>Ran each change through three stages, staging, UI integration and production, and verified access-point claim behaviour along the way. Tracing connectivity and re-claim problems across the data path was most of the work.</dd>
+        </dl>
+        <p class="stack">GCP · AWS · Kafka telemetry · REST APIs · Linux</p>
+        <p class="links"><span>Internal work, not public</span></p>
+      </div>
+      <figure class="fig rv">
+        <div class="frame">
+          <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: a change moves through staging, UI integration and production, for two cloud providers">
+            <text class="m" x="24" y="64">GCP Frankfurt DR migration</text><text class="m" x="24" y="236">AWS UAE outage failover</text>
+            <circle class="a fillp" cx="64" cy="120" r="20"/><circle class="a fillp" cx="240" cy="120" r="20"/><circle class="a fillp" cx="416" cy="120" r="20"/>
+            <path class="a" d="M84 120h136M260 120h136"/>
+            <path class="a" d="M56 120l6 6 11-12M232 120l6 6 11-12M408 120l6 6 11-12"/>
+            <text class="t" x="64" y="164" text-anchor="middle">Staging</text><text class="t" x="240" y="164" text-anchor="middle">UI integration</text><text class="t" x="416" y="164" text-anchor="middle">Production</text>
+            <path class="r" d="M24 200h432"/>
+          </svg>
+        </div>
+        <figcaption>Each change, in the same three stages.</figcaption>
+      </figure>
+    </article>
 
-  <section id="papers" class="sec grid" aria-labelledby="h-papers">
-    <aside><p class="label">Papers</p></aside>
-    <div class="main">
-      <h2 id="h-papers">Three <em>IEEE</em> publications.</h2>
-      <ul class="index">
-        <li><span class="k">ICCCNT, June 2024</span><div><h3>Shellcode generation: a resource-efficient approach using fine-tuned LLMs</h3><p>PEFT/LoRA on Mistral and Llama, with an automated BLEU evaluation pipeline. BLEU-1 of 0.8506.</p></div><a class="go" href="https://github.com/Mohith2210/Project-Reports/blob/main/15th_ICCCNT_2024_paper_4754-1%5B1%5D.pdf" rel="noopener">Paper (PDF)</a></li>
-        <li><span class="k">ICDMMESD, May 2024</span><div><h3>DevSecOps: a comprehensive study and hands-on application for sustainability</h3><p>SAST, DAST and SCA scans in every Jenkins and GitHub Actions stage of an app deployed to AWS EKS, with STRIDE threat modelling.</p></div><a class="go" href="https://github.com/Mohith2210/Project-Reports/blob/main/SE_DevSecOps_finaleditedusecase.pdf" rel="noopener">Report (PDF)</a></li>
-        <li><span class="k">ICCCNT, 2025</span><div><h3>Kannada speech recognition with OpenAI Whisper</h3><p>Fine-tuned on a curated Kannada dataset. WER 0.0958, CER 0.0321.</p></div><span class="go na">PDF not online</span></li>
-      </ul>
-    </div>
-  </section>
+    <article class="proj">
+      <div class="txt rv">
+        <p class="ctx tag">B.Tech research paper · with a team</p>
+        <h3>Green microservices on Kubernetes</h3>
+        <dl>
+          <dt>The brief</dt><dd>Make microservice autoscaling respond to cold starts and traffic spikes.</dd>
+          <dt>What we built</dt><dd>A configurable per-service resource broker that drives two Kubernetes mechanisms, the Horizontal Pod Autoscaler and the Cluster Autoscaler. I co-authored the research.</dd>
+        </dl>
+        <p class="stack">Docker · Kubernetes · HPA · Cluster Autoscaler</p>
+        <p class="links"><a href="https://github.com/Mohith2210/Project-Reports/blob/main/Microservices_change.pdf" rel="noopener">Read the report (PDF)</a></p>
+      </div>
+      <figure class="fig rv">
+        <div class="frame">
+          <svg viewBox="0 0 480 300" role="img" aria-label="Chart: traffic rises and falls over time while the number of pods follows it in steps">
+            <path class="r" d="M40 250h410M40 40v210"/>
+            <path class="i" d="M40 220C90 215 110 120 160 110s70 110 120 100 70-130 110-120 40 60 60 90"/>
+            <path class="a" d="M40 230h70v-50h40v-70h60v60h40v50h50v-90h50v30h40v60h60" stroke-linejoin="miter"/>
+            <text class="m" x="46" y="56">traffic</text><text class="m" x="46" y="72" style="fill:var(--hot)">pods</text>
+            <text class="m" x="400" y="270">time</text>
+          </svg>
+        </div>
+        <figcaption>Illustration of the idea, not measured data.</figcaption>
+      </figure>
+    </article>
 
-  <section id="about" class="sec grid about" aria-labelledby="h-about">
-    <aside><p class="label">About</p></aside>
-    <div class="main">
-      <h2 id="h-about">Following one problem <em>all the way down</em>.</h2>
-      <p>I started in data, cleaning spacecraft telemetry at ISRO, and moved into networking at Juniper. Most of my days now are spent following a single fault across a device's firmware, a Kafka stream and a cloud API until the three stories agree.</p>
-      <p>I like the parts of a system where layers meet and disagree, and I like building the small tools that make those meetings easier to read. Outside work I teach with Make A Difference, a non-profit, and I took part in the Amrita to Ritsumeikan University student exchange.</p>
-      <ul class="honours">
+    <article class="proj">
+      <div class="txt rv">
+        <p class="ctx tag">B.Tech capstone · 2025</p>
+        <h3>WeedYOLO-MS</h3>
+        <dl>
+          <dt>The brief</dt><dd>A detection model accurate enough to be useful and small enough to run at the edge.</dd>
+          <dt>What I built</dt><dd>Hybrid architectures that fuse a Swin Transformer backbone with CBAM attention on YOLOv9, then an ablation across fusion strategies. The best configuration reached 0.855 precision and mAP@0.50 with 3.56M parameters and 15.6 GFLOPs.</dd>
+        </dl>
+        <p class="stack">Python · PyTorch · YOLOv9 · Swin Transformer · CBAM</p>
+        <p class="links"><span>Repository not yet public</span></p>
+      </div>
+      <figure class="fig rv">
+        <div class="frame">
+          <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: image goes through a Swin Transformer backbone, CBAM attention and a YOLOv9 head, producing detections">
+            <rect class="i fillp" x="18" y="112" width="74" height="70" rx="2"/><text class="t" x="55" y="152" text-anchor="middle">Image</text>
+            <rect class="i fillp" x="116" y="112" width="96" height="70" rx="2"/><text class="t" x="164" y="144" text-anchor="middle">Swin</text><text class="m" x="164" y="160" text-anchor="middle">backbone</text>
+            <rect class="a fillp" x="236" y="112" width="84" height="70" rx="2"/><text class="t" x="278" y="152" text-anchor="middle">CBAM</text>
+            <rect class="i fillp" x="344" y="112" width="118" height="70" rx="2"/><text class="t" x="403" y="144" text-anchor="middle">YOLOv9 head</text><text class="m" x="403" y="160" text-anchor="middle">detections</text>
+            <path class="i" d="M92 147h18m-6-5 6 5-6 5M212 147h18m-6-5 6 5-6 5M320 147h18m-6-5 6 5-6 5"/>
+            <text class="big" x="240" y="244" text-anchor="middle">0.855 mAP@0.50</text><text class="m" x="240" y="266" text-anchor="middle">3.56M parameters · 15.6 GFLOPs</text>
+          </svg>
+        </div>
+        <figcaption>The best configuration from the ablation.</figcaption>
+      </figure>
+    </article>
+
+    <article class="proj">
+      <div class="txt rv">
+        <p class="ctx tag">Research · IEEE ICCCNT 2025</p>
+        <h3>Speech recognition for Kannada</h3>
+        <dl>
+          <dt>The brief</dt><dd>Kannada is a low-resource language for speech recognition. How far can a small, carefully chosen dataset take a fine-tuned model?</dd>
+          <dt>What I did</dt><dd>Curated 465 speech samples across five domains and fine-tuned OpenAI's Whisper on them. The fine-tuned model reached a word error rate of 0.0958 and a character error rate of 0.0321.</dd>
+        </dl>
+        <p class="stack">Python · PyTorch · Whisper · Hugging Face</p>
+        <p class="links"><span>Published at IEEE ICCCNT 2025</span></p>
+      </div>
+      <figure class="fig rv">
+        <div class="frame">
+          <svg viewBox="0 0 480 300" role="img" aria-label="Diagram: a speech waveform goes into a fine-tuned Whisper model and comes out as text">
+            <g class="a"><path d="M24 150v0M36 140v20M48 126v48M60 112v76M72 132v36M84 144v12M96 120v60M108 100v100M120 126v48M132 140v20M144 118v64M156 136v28M168 146v8"/></g>
+            <rect class="a fillp" x="196" y="112" width="104" height="76" rx="2"/><text class="t" x="248" y="146" text-anchor="middle">Whisper</text><text class="m" x="248" y="162" text-anchor="middle">fine-tuned</text>
+            <path class="i" d="M180 150h10m-6-5 6 5-6 5M300 150h30m-6-5 6 5-6 5"/>
+            <path class="i" d="M346 128h110M346 148h96M346 168h108"/>
+            <text class="big" x="24" y="248">WER 0.0958</text><text class="big" x="250" y="248">CER 0.0321</text>
+            <text class="m" x="24" y="270">465 samples · 5 domains</text>
+          </svg>
+        </div>
+        <figcaption>From audio to text, with the reported error rates.</figcaption>
+      </figure>
+    </article>
+  </div>
+</section>
+
+<section id="also" class="cream" aria-labelledby="h-also" data-hop="Also built">
+  <div class="wrap">
+    <div class="sh rv"><p class="tag">Also built, at university</p><h2 id="h-also">Smaller studies, <em>same curiosity.</em></h2></div>
+    <ul class="index">
+      <li><span class="k">Team project · 2024</span><div><h3>Fuzzing techniques on distributed systems</h3><p>A grey-box fuzzer with semantic and adversarial input mutation aimed at protocol and serialized-input parsing. A 36-page report.</p></div><span class="go na">Report not public</span></li>
+      <li><span class="k">Course research · 2024</span><div><h3>Ant colony routing for sensor networks</h3><p>Pheromone-based adaptive routing simulated in NS3. Paths are chosen probabilistically from RSSI, which spreads traffic and reduces packet loss compared with the shortest path.</p></div><span class="go na">Report not public</span></li>
+      <li><span class="k">Course research</span><div><h3>Real-time recommendation for microblogging</h3><p>Posts flow through Apache Kafka, are classified with ML embeddings and served from Elasticsearch.</p></div><span class="go na">Report not public</span></li>
+      <li><span class="k">Course paper</span><div><h3>Accident detection for two-wheelers with TinyML</h3><p>Raspberry Pi 5, an MPU-6050 gyroscope and accelerometer, ultrasonic sensors and GPS. TinyML flags crash-like anomalies and the location goes to a light server that alerts a phone.</p></div><span class="go na">Report not public</span></li>
+      <li><span class="k">Course paper</span><div><h3>Blockchain platforms for hospital records</h3><p>Ethereum, EOS and Skale compared on simplified hospital systems deployed to each testnet: cost, consensus, scalability, security and smart-contract support.</p></div><span class="go na">Report not public</span></li>
+      <li><span class="k">Course project</span><div><h3>Web content analysis through scraping</h3><p>Scraped many sites for UI elements, colour palettes and fonts, then visualised current design trends.</p></div><a class="go" href="https://github.com/Mohith2210/Project-Reports/blob/main/BDA_Final%20(1)%20(1).pdf" rel="noopener">Report (PDF) &rarr;</a></li>
+      <li><span class="k">Research abstract</span><div><h3>Memory and input safety for CPython</h3><p>Deterministic memory management and safety guarantees for the interpreter, with an ownership model like Rust's.</p></div><span class="go na">Abstract not public</span></li>
+      <li><span class="k">Personal · 2026</span><div><h3>A job-search scanner</h3><p>Pulls postings from five public job-board APIs, then filters, de-duplicates and scores them. 102 unit tests.</p></div><span class="go na">Private repository</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="papers" class="cream" aria-labelledby="h-papers" data-hop="Papers">
+  <div class="wrap">
+    <div class="sh rv"><p class="tag">Papers</p><h2 id="h-papers">Three <em>IEEE</em> publications.</h2></div>
+    <ul class="index">
+      <li><span class="k">ICCCNT · June 2024</span><div><h3>Shellcode generation: a resource-efficient approach using fine-tuned LLMs</h3><p>PEFT/LoRA on Mistral and Llama, with an automated BLEU evaluation pipeline. BLEU-1 of 0.8506.</p></div><a class="go" href="https://github.com/Mohith2210/Project-Reports/blob/main/15th_ICCCNT_2024_paper_4754-1%5B1%5D.pdf" rel="noopener">Paper (PDF) &rarr;</a></li>
+      <li><span class="k">ICDMMESD · May 2024</span><div><h3>DevSecOps: a comprehensive study and hands-on application for sustainability</h3><p>SAST, DAST and SCA scans in every Jenkins and GitHub Actions stage of an app deployed to AWS EKS, with STRIDE threat modelling.</p></div><a class="go" href="https://github.com/Mohith2210/Project-Reports/blob/main/SE_DevSecOps_finaleditedusecase.pdf" rel="noopener">Report (PDF) &rarr;</a></li>
+      <li><span class="k">ICCCNT · 2025</span><div><h3>Kannada speech recognition with OpenAI Whisper</h3><p>Fine-tuned on a curated Kannada dataset. WER 0.0958, CER 0.0321.</p></div><span class="go na">PDF not online</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="about" class="cream" aria-labelledby="h-about" data-hop="About">
+  <div class="wrap">
+    <div class="sh rv"><p class="tag" id="h-about">About</p></div>
+    <p class="stmt" id="stmt">I started in data, cleaning spacecraft telemetry at ISRO, and moved into networking at Juniper. Now I follow a single fault across a device's firmware, a Kafka stream and a cloud API until the three stories agree. I like the places where layers meet and disagree, and I build the small tools that make those meetings easier to read.</p>
+    <div class="two">
+      <p class="rv">Outside work I teach with Make A Difference, a non-profit, and I took part in the Amrita to Ritsumeikan University student exchange. I studied Computer Science and Engineering at Amrita Vishwa Vidyapeetham in Bengaluru.</p>
+      <ul class="honours rv">
         <li>Platinum Medal, Japan World Youth Meeting <span>Aug 2024</span></li>
         <li>First place, GG Hackathon, Forge Club, Amrita <span>Apr 2023</span></li>
         <li>Educator, Make A Difference <span>Jan 2023 to now</span></li>
-        <li>B.Tech, Computer Science and Engineering, Amrita Vishwa Vidyapeetham <span>2021 to 2025</span></li>
+        <li>B.Tech, Computer Science and Engineering <span>2021 to 2025</span></li>
       </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="now" class="sec grid" aria-labelledby="h-now">
-    <aside><p class="label">Now</p></aside>
-    <div class="main">
-      <h2 id="h-now">What I'm <em>doing lately</em>.</h2>
-      <div class="now">
-        <div><h3>At work</h3><p>Owning quality for seven Mist feature areas, and building internal tools that let my team work with AI agents day to day.</p></div>
-        <div><h3>On the side</h3><p>A Python job-search scanner, and this site.</p></div>
-        <div><h3>Looking for</h3><p>Software engineering roles in Bengaluru or remote, where networking, infrastructure and software overlap.</p></div>
-      </div>
-      <p class="asof">Updated October 2026.</p>
+<section id="now" class="cream" aria-labelledby="h-now" data-hop="Now">
+  <div class="wrap">
+    <div class="sh rv"><p class="tag">Now</p><h2 id="h-now">What I'm <em>doing lately.</em></h2></div>
+    <div class="now rv">
+      <div><h3 class="tag">At work</h3><p>Owning quality for seven Mist feature areas, and building internal tools that let my team work with AI agents day to day.</p></div>
+      <div><h3 class="tag">On the side</h3><p>A Python job-search scanner, and this site.</p></div>
+      <div><h3 class="tag">Looking for</h3><p>Software engineering roles in Bengaluru or remote, where networking, infrastructure and software overlap.</p></div>
     </div>
-  </section>
-
-  <section id="contact" class="sec grid contact" aria-labelledby="h-contact">
-    <aside><p class="label">Contact</p></aside>
-    <div class="main">
-      <h2 id="h-contact" class="visually-title" style="font-size:clamp(20px,2vw,24px);margin-bottom:18px;color:var(--muted)">The easiest way to reach me is email.</h2>
-      <p class="big"><a id="mail" href="mailto:mkvn1322@gmail.com">mkvn1322@gmail.com</a></p>
-      <ul>
-        <li><button class="copy" id="copy" type="button">Copy email</button></li>
-        <li><a href="https://linkedin.com/in/mohith-krishna-v" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/Mohith2210" rel="noopener">GitHub</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <footer><span>Mohith Krishna V · Bengaluru</span><span>Figures come from my own work and university records.</span></footer>
+    <p class="asof">Updated October 2026</p>
+  </div>
+</section>
 </main>
+
+<section id="contact" class="contact" aria-labelledby="h-contact" data-hop="Contact">
+  <div class="wrap">
+    <p class="tag">Contact</p>
+    <h2 id="h-contact">Send a <em>packet.</em></h2>
+    <a class="mail" id="mail" href="mailto:mkvn1322@gmail.com">mkvn1322@gmail.com</a>
+    <ul class="chips">
+      <li><button id="copy" type="button">Copy email</button></li>
+      <li><a href="https://linkedin.com/in/mohith-krishna-v" rel="noopener">LinkedIn &nearr;</a></li>
+      <li><a href="https://github.com/Mohith2210" rel="noopener">GitHub &nearr;</a></li>
+    </ul>
+  </div>
+  <div class="ticker" aria-hidden="true"><div>
+    <span>Open to roles</span><span>Bengaluru</span><span>Remote</span><span>Open to roles</span><span>Bengaluru</span><span>Remote</span>
+    <span>Open to roles</span><span>Bengaluru</span><span>Remote</span><span>Open to roles</span><span>Bengaluru</span><span>Remote</span>
+  </div></div>
+</section>
+
+<footer><div class="wrap"><span>Mohith Krishna V · Bengaluru</span><span>Figures come from my own work and university records.</span></div></footer>
+
+<div class="hop" id="hop" aria-hidden="true"><span id="hopTxt">Hop 01 / 07 · Top</span><i></i></div>
 
 <script>
 (function () {
-  var root = document.documentElement, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement, $ = function (s) { return document.querySelector(s); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   root.classList.add('js');
 
-  /* gentle entrance; everything shows if the observer is unavailable */
-  var els = [].slice.call(document.querySelectorAll('.reveal'));
-  if ('IntersectionObserver' in window && !reduce) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
-    els.forEach(function (el) { io.observe(el); });
-    setTimeout(function () { els.forEach(function (el) { el.classList.add('in'); }); }, 4000);
-  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+  /* ---- hero: a landscape of signal strength, drifting, nudged by the pointer ---- */
+  var hero = $('#top'), cv = $('#terrain'), cx = cv.getContext('2d');
+  var W = 0, H = 0, DPR = 1, COLS = 88, ROWS = 50, mouse = { x: .55, y: .7, tx: .55, ty: .7 }, heroP = 0, visible = true;
+  function size() { DPR = Math.min(1.6, window.devicePixelRatio || 1); W = hero.clientWidth; H = hero.clientHeight; cv.width = W * DPR; cv.height = H * DPR; cx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+  function frame(t) {
+    cx.clearRect(0, 0, W, H);
+    cx.globalCompositeOperation = 'lighter';
+    mouse.x += (mouse.tx - mouse.x) * .07; mouse.y += (mouse.ty - mouse.y) * .07;
+    var hz = H * (0.40 + heroP * 0.06), mx = mouse.x * 2 - 1, md = Math.max(0, Math.min(1, (mouse.y - 0.3) / 0.7));
+    var lift = 1 + heroP * 0.9;
+    var g = cx.createRadialGradient(W * (0.5 + mx * 0.12), H * 0.72, 0, W * 0.5, H * 0.72, W * 0.55);
+    g.addColorStop(0, 'rgba(255,75,43,.30)'); g.addColorStop(.5, 'rgba(255,75,43,.08)'); g.addColorStop(1, 'rgba(255,75,43,0)');
+    cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+    for (var r = 0; r < ROWS; r++) {
+      var d = r / (ROWS - 1), s = 0.16 + d * 1.25, base = hz + H * 0.66 * d * d, amp = H * 0.19 * (0.35 + d * 0.95) * lift, size = 1.3 + s * 2.6, fade = Math.min(1, d * 1.8 + 0.25);
+      for (var c = 0; c < COLS; c++) {
+        var cn = c / (COLS - 1) * 2 - 1;
+        var dx = cn - mx, dd = d - md;
+        var f = Math.sin(cn * 3.2 + t * 0.00035 + d * 3.1) * 0.45 + Math.sin(cn * 7.1 - d * 6.3 + t * 0.0005) * 0.28 + Math.cos(d * 10.2 + cn * 2 + t * 0.0003) * 0.2 + Math.exp(-(dx * dx * 9 + dd * dd * 38)) * 0.95;
+        var w = Math.max(0, Math.min(1, (f + 0.6) / 1.5)); w = w * w;
+        var x = W / 2 + cn * W * 0.62 * s * 1.35, y = base - f * amp;
+        if (x < -10 || x > W + 10) continue;
+        cx.fillStyle = 'rgba(255,' + ((75 + w * 160) | 0) + ',' + ((43 + w * 180) | 0) + ',' + (0.3 + w * 0.7 * fade).toFixed(3) + ')';
+        cx.fillRect(x, y, size, size);
+      }
+    }
+    cx.globalCompositeOperation = 'source-over';
+  }
+  function loop(t) { if (visible) frame(t); requestAnimationFrame(loop); }
+  size();
+  if (reduce) { frame(6200); } else { requestAnimationFrame(loop); }
+  window.addEventListener('resize', function () { size(); if (reduce) frame(6200); });
+  hero.addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse') return; var r = hero.getBoundingClientRect(); mouse.tx = (e.clientX - r.left) / r.width; mouse.ty = (e.clientY - r.top) / r.height; });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(hero);
 
-  /* navigation: hide on scroll down, show on scroll up, mark the current section */
-  var bar = document.getElementById('bar'), last = window.scrollY, links = [].slice.call(document.querySelectorAll('.bar nav a'));
-  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  /* ---- scroll: hero parallax, hop counter ---- */
+  var heroMain = $('#heroMain'), hop = $('#hop'), hopTxt = $('#hopTxt');
+  var stops = [{ id: 'top', n: 'Top' }].concat([].map.call(document.querySelectorAll('[data-hop]'), function (s) { return { id: s.id, n: s.getAttribute('data-hop') }; }));
+  var stopEls = stops.map(function (s) { return document.getElementById(s.id); });
   var ticking = false;
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
   function onScroll() {
-    var y = window.scrollY;
-    bar.classList.toggle('scrolled', y > 8);
-    if (y > last + 6 && y > 160) bar.classList.add('hide'); else if (y < last - 6 || y < 160) bar.classList.remove('hide');
-    last = y;
-    var cur = -1, probe = y + 140;
-    secs.forEach(function (s, i) { if (s && s.offsetTop <= probe) cur = i; });
-    links.forEach(function (a, i) { if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    var y = window.scrollY, hh = hero.offsetHeight, vh = window.innerHeight;
+    heroP = Math.max(0, Math.min(1, y / (hh * 0.9)));
+    if (!reduce) heroMain.style.setProperty('--p', heroP.toFixed(3));
+    var cur = 0, probe = y + vh * 0.4;
+    stopEls.forEach(function (el, i) { if (el && el.offsetTop <= probe) cur = i; });
+    hopTxt.textContent = 'Hop ' + pad(cur + 1) + ' / ' + pad(stops.length) + ' · ' + stops[cur].n;
+    hop.style.setProperty('--sp', Math.min(1, y / Math.max(1, document.documentElement.scrollHeight - vh)).toFixed(3));
+    wordsUpdate();
     ticking = false;
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  bar.addEventListener('focusin', function () { bar.classList.remove('hide'); });
-  onScroll();
 
-  /* copy email */
-  var btn = document.getElementById('copy'), mail = document.getElementById('mail');
+  /* ---- about statement lights up word by word ---- */
+  var stmt = $('#stmt'), words = [];
+  if (stmt && !reduce) {
+    stmt.setAttribute('aria-label', stmt.textContent);
+    stmt.innerHTML = stmt.textContent.split(' ').map(function (w) { return '<span class="w" aria-hidden="true">' + w + '</span>'; }).join(' ');
+    words = [].slice.call(stmt.querySelectorAll('.w'));
+  }
+  function wordsUpdate() {
+    if (!words.length) return;
+    var r = stmt.getBoundingClientRect(), vh = window.innerHeight;
+    var t = Math.max(0, Math.min(1, (vh * 0.82 - r.top) / (r.height + vh * 0.3)));
+    var n = Math.round(t * 1.05 * words.length);
+    words.forEach(function (w, i) { w.classList.toggle('on', i < n); });
+  }
+
+  /* ---- entrances ---- */
+  var els = [].slice.call(document.querySelectorAll('.rv'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { els.forEach(function (el) { el.classList.add('in'); }); }, 6000);
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+
+  /* ---- keyboard: W work, A about, P papers, N now, C contact, T top ---- */
+  var map = { w: 'work', a: 'about', p: 'papers', n: 'now', c: 'contact', t: 'top', b: 'also' };
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+    var tg = e.target && e.target.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+    var id = map[(e.key || '').toLowerCase()]; if (!id) return;
+    var el = document.getElementById(id); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+  });
+
+  /* ---- copy email ---- */
+  var btn = $('#copy'), mail = $('#mail');
   btn.addEventListener('click', function () {
     var ok = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy email'; }, 1600); };
     function sel() { var r = document.createRange(); r.selectNodeContents(mail); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Press Ctrl+C'; }
     try { navigator.clipboard.writeText(mail.textContent).then(ok, sel); } catch (e) { sel(); }
   });
+
+  onScroll();
 })();
 </script>
 </body>
