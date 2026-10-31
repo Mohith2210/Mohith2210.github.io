@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mohith Krishna V | Software Engineer</title>
+<meta name="description" content="Software engineer on the Juniper/HPE Mist cloud platform. Python, REST APIs, Kafka, Kubernetes and test automation. Three IEEE publications.">
+<meta property="og:title" content="Mohith Krishna V | Software Engineer">
+<meta property="og:description" content="Mist cloud platform QA owner and tool builder. Python, REST APIs, Kafka, Kubernetes, three IEEE publications.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one calm column. Hero pairs the name with a drifting Wi-Fi ring field; a "readings" strip turns real work numbers into instrument dials; work is a dated log; projects are an asymmetric grid. */
+:root {
+  --bg: #eef1f5;
+  --surface: #ffffff;
+  --fg: #0c1424;
+  --muted: #55627a;
+  --line: #d3d9e3;
+  --signal: #2450f0;
+  --signal-soft: #dfe6fd;
+  --amber: #b86500;
+  --ring: rgba(36, 80, 240, 0.28);
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1120; --surface: #131b2e; --fg: #e8edf7; --muted: #93a0ba; --line: #26314b;
+    --signal: #7b9bff; --signal-soft: #1b2850; --amber: #f0a64a; --ring: rgba(123, 155, 255, 0.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1120; --surface: #131b2e; --fg: #e8edf7; --muted: #93a0ba; --line: #26314b;
+  --signal: #7b9bff; --signal-soft: #1b2850; --amber: #f0a64a; --ring: rgba(123, 155, 255, 0.3);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+a { color: var(--signal); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+nav { display: flex; gap: 20px; justify-content: space-between; align-items: center; padding: 20px 0; font: 500 13px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; flex-wrap: wrap; }
+nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--signal); }
+.status { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 0 var(--ring); animation: ping 2.4s infinite; }
+@keyframes ping { 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: center; padding: 40px 0 48px; }
+.hero > * { min-width: 0; }
+.eyebrow { font: 500 13px/1.4 var(--mono); color: var(--signal); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 16px; }
+h1 { font: 700 clamp(44px, 8vw, 92px)/.95 var(--display); letter-spacing: -.03em; margin: 0 0 24px; text-wrap: balance; }
+.lede { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.5; max-width: 34em; margin: 0 0 28px; color: var(--fg); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 10px; font: 500 15px/1 var(--body); text-decoration: none; border: 1px solid var(--line); color: var(--fg); background: var(--surface); cursor: pointer; }
+.btn.primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+:root[data-theme="dark"] .btn.primary { color: #0b1120; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0b1120; } }
+.btn:hover { border-color: var(--signal); }
+.field { position: relative; aspect-ratio: 1; width: 100%; max-width: 420px; justify-self: end; }
+.field canvas { width: 100%; height: 100%; display: block; }
+.field .tag { position: absolute; font: 500 11px/1 var(--mono); letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+.field .t1 { left: 4%; top: 6%; } .field .t2 { right: 2%; bottom: 8%; }
+
+section { padding: 44px 0; border-top: 1px solid var(--line); }
+h2 { font: 700 clamp(26px, 4vw, 36px)/1.1 var(--display); letter-spacing: -.02em; margin: 0 0 8px; }
+.kicker { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 28px; }
+
+.dials { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.dial { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; }
+.dial b { display: block; font: 700 44px/1 var(--display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.dial span { display: block; margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.4; }
+.dial.hot b { color: var(--signal); }
+
+.log { display: grid; gap: 0; }
+.entry { display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); }
+.entry:first-child { border-top: 0; padding-top: 0; }
+.entry > * { min-width: 0; }
+.when { font: 500 13px/1.5 var(--mono); color: var(--muted); }
+.entry h3 { font: 700 21px/1.25 var(--display); margin: 0 0 4px; }
+.org { color: var(--muted); margin: 0 0 12px; font-size: 15px; }
+.entry ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+.entry li::marker { color: var(--signal); }
+
+.projects { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; grid-column: span 2; min-width: 0; }
+.card.wide { grid-column: span 4; background: var(--signal-soft); border-color: transparent; }
+.card h3 { font: 700 19px/1.25 var(--display); margin: 0 0 8px; }
+.card p { margin: 0 0 14px; font-size: 15px; }
+.stack { font: 400 12px/1.6 var(--mono); color: var(--muted); margin: 0; }
+
+.pubs { display: grid; gap: 0; }
+.pub { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.pub:first-child { border-top: 0; }
+.pub > * { min-width: 0; }
+.pub strong { font-weight: 500; }
+.pub small { display: block; color: var(--muted); font-size: 14px; }
+.metric { font: 500 13px/1.4 var(--mono); color: var(--amber); text-align: right; }
+
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
+.skills h3 { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--signal); margin: 0 0 8px; }
+.skills p { margin: 0; font-size: 15px; }
+
+.contact { display: grid; gap: 14px; }
+.addr { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font: 500 clamp(16px, 3.4vw, 22px)/1.3 var(--mono); }
+.addr code { overflow-wrap: anywhere; user-select: all; }
+footer { padding-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font: 400 13px/1.5 var(--mono); }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; }
+  .field { justify-self: center; max-width: 320px; order: -1; }
+  .entry { grid-template-columns: 1fr; gap: 6px; }
+  .projects { grid-template-columns: 1fr; }
+  .card, .card.wide { grid-column: auto; }
+  .pub { grid-template-columns: 1fr; gap: 4px; }
+  .metric { text-align: left; }
+}
+.acad { display: grid; gap: 0; }
+.acad .row { display: grid; grid-template-columns: 1fr 150px; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.acad .row:first-child { border-top: 0; }
+.acad .row > * { min-width: 0; }
+.acad h3 { font: 700 18px/1.3 var(--display); margin: 0 0 4px; }
+.acad p { margin: 0 0 6px; font-size: 15px; }
+.acad .tag2 { font: 500 12px/1.4 var(--mono); color: var(--amber); text-align: right; letter-spacing: .04em; text-transform: uppercase; }
+.honours { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.honour { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+.honour.gold { border-color: var(--amber); }
+.honour small { font: 500 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px; }
+.honour h3 { font: 700 19px/1.25 var(--display); margin: 0 0 6px; }
+.honour p { margin: 0; font-size: 15px; }
+@media (max-width: 760px) { .acad .row { grid-template-columns: 1fr; gap: 4px; } .acad .tag2 { text-align: left; } }
+@media (prefers-reduced-motion: reduce) { .dot { animation: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav aria-label="Sections">
+    <span class="status"><i class="dot"></i> Bengaluru, India</span>
+    <span class="links"><a href="#work">Work</a><a href="#projects">Projects</a><a href="#college">College</a><a href="#papers">Papers</a><a href="#honours">Honours</a><a href="#contact">Contact</a></span>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Software engineer, Juniper / HPE Mist</p>
+      <h1>Mohith Krishna V</h1>
+      <p class="lede">I work on the cloud platform behind Mist wireless networks. I own quality for seven feature areas, trace faults from device firmware through Kafka and REST APIs, and build Python tools my team uses every day.</p>
+      <div class="cta">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="https://linkedin.com/in/mohith-krishna-v" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="field" aria-hidden="true">
+      <canvas id="rings" width="420" height="420"></canvas>
+      <span class="tag t1">access point</span><span class="tag t2">clients</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="readings">
+    <h2 id="readings">Readings from the job</h2>
+    <p class="kicker">Aug 2025 to now, Mist wireless</p>
+    <div class="dials">
+      <div class="dial hot"><b>7</b><span>feature areas where I am the designated QA owner</span></div>
+      <div class="dial"><b>79</b><span>Xray test cases written and maintained</span></div>
+      <div class="dial"><b>134</b><span>Jira issues verified, about 70 resolved</span></div>
+      <div class="dial"><b>10+</b><span>access-point models across 3 firmware platforms</span></div>
+      <div class="dial"><b>90+</b><span>sites covered by one escalation I helped drive</span></div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="h-work">
+    <h2 id="h-work">Work</h2>
+    <p class="kicker">Where the time went</p>
+    <div class="log">
+      <article class="entry">
+        <div class="when">Aug 2025 to present</div>
+        <div>
+          <h3>Software Engineer</h3>
+          <p class="org">Juniper Networks / HPE, Mist wireless</p>
+          <ul>
+            <li>Built Config Wizard, a Python (PyQt6) tool that copies an access point's WLAN setup into another Mist org through the Mist REST API, with dry-run mode and audit logging. Teams across the org adopted it.</li>
+            <li>Wrote the automated tests for IoT device integration (electronic shelf labels from three vendors) and traced failures through device flow tables, Kafka telemetry and REST APIs.</li>
+            <li>Validated cloud disaster-recovery changes on two providers: the GCP Frankfurt DR migration and the AWS UAE outage failover, in staging, UI-integration and production.</li>
+            <li>Built internal tools that let my team use AI agents in daily work.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">Jan to Jul 2025</div>
+        <div>
+          <h3>Software Engineering Intern</h3>
+          <p class="org">Juniper Networks, Mist</p>
+          <ul>
+            <li>Wrote cross-platform Python automation (Selenium, pywinauto, PyAutoGUI) for WPA2-EAP Wi-Fi tests on Windows and macOS.</li>
+            <li>Validated Mist REST API responses across 15+ sample sets with pytest and set up a Layer-3 test bed (SRX300, FreeRADIUS, VLANs, NAT).</li>
+          </ul>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">Jun to Jul 2024</div>
+        <div>
+          <h3>Data Engineering Intern</h3>
+          <p class="org">ISRO, URSC</p>
+          <ul>
+            <li>Cleaned 889K spacecraft telemetry records across 2,831 parameters and built anomaly-detection and predictive pipelines in Python.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects" aria-labelledby="h-proj">
+    <h2 id="h-proj">Projects</h2>
+    <p class="kicker">Built outside the day job</p>
+    <div class="projects">
+      <article class="card wide">
+        <h3>Green Microservices: autoscaling on Kubernetes</h3>
+        <p>Research on a per-service resource broker that drives two Kubernetes mechanisms, the Horizontal Pod Autoscaler and the Cluster Autoscaler, to absorb cold starts and traffic spikes in microservice deployments.</p>
+        <p class="stack">Docker / Kubernetes / HPA / Cluster Autoscaler</p>
+      </article>
+      <article class="card">
+        <h3>DevSecOps pipeline</h3>
+        <p>A containerised app on AWS EKS with SAST, DAST and SCA scans in every Jenkins and GitHub Actions stage, plus STRIDE threat modelling.</p>
+        <p class="stack">Jenkins / GitHub Actions / EKS</p>
+      </article>
+      <article class="card">
+        <h3>Kafka and Elasticsearch recommender</h3>
+        <p>Streams posts through Kafka, classifies them with ML embeddings and serves recommendations from Elasticsearch.</p>
+        <p class="stack">Kafka / Elasticsearch / Python</p>
+      </article>
+      <article class="card">
+        <h3>Job-search scanner</h3>
+        <p>Pulls postings from five public job-board APIs, then filters, de-duplicates and scores them. Covered by 102 unit tests.</p>
+        <p class="stack">Python / REST / unittest</p>
+      </article>
+      <article class="card">
+        <h3>Grey-box fuzzer</h3>
+        <p>A fuzzer for distributed systems with semantic and adversarial input mutation, built with a team.</p>
+        <p class="stack">Python / fuzzing</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="college" aria-labelledby="h-col">
+    <h2 id="h-col">College work</h2>
+    <p class="kicker">B.Tech CSE, Amrita Vishwa Vidyapeetham, Bengaluru. CGPA 7.87 / 10</p>
+    <div class="acad">
+      <div class="row">
+        <div><h3>WeedYOLO-MS: hybrid attention-transformer detection model</h3>
+        <p>My B.Tech capstone. I fused a Swin Transformer backbone with CBAM attention on YOLOv9 and ran an ablation across fusion strategies. The best configuration, CBAM with Swin, reached 0.855 precision and mAP@0.50 with only 3.56M parameters and 15.6 GFLOPs, small enough for edge devices.</p>
+        <p class="stack">Python / PyTorch / YOLOv9 / Swin Transformer / CBAM</p></div>
+        <div class="tag2">Capstone, 2025</div>
+      </div>
+      <div class="row">
+        <div><h3>Fuzzing techniques on distributed systems</h3>
+        <p>A team project, 36-page report. We co-designed a grey-box fuzzer with semantic and adversarial input mutation aimed at protocol and serialized-input parsing.</p>
+        <p class="stack">Python / grey-box fuzzing</p></div>
+        <div class="tag2">Team project, 2024</div>
+      </div>
+      <div class="row">
+        <div><h3>Ant colony optimisation for wireless sensor network routing</h3>
+        <p>Simulated pheromone-based adaptive routing in NS3. Paths are chosen probabilistically from RSSI so traffic spreads out, which cuts congestion and packet loss compared with always using the shortest path. I measured convergence, routing accuracy and resource use across mesh topologies.</p>
+        <p class="stack">C++ / Python / NS3</p></div>
+        <div class="tag2">Course research, 2024</div>
+      </div>
+      <div class="row">
+        <div><h3>Real-time recommendation for microblogging platforms</h3>
+        <p>Posts are ingested through Apache Kafka, classified with machine-learning embeddings and stored in Elasticsearch, which serves the personalised recommendations.</p>
+        <p class="stack">Kafka / Elasticsearch / Python / ML embeddings</p></div>
+        <div class="tag2">Course research</div>
+      </div>
+      <div class="row">
+        <div><h3>Accident detection for two-wheelers using TinyML</h3>
+        <p>A Raspberry Pi 5 system with ultrasonic sensors, an MPU-6050 gyroscope and accelerometer, and GPS. TinyML flags crash-like anomalies and the location goes to a light server that alerts a phone.</p>
+        <p class="stack">Raspberry Pi / TinyML / IoT</p></div>
+        <div class="tag2">Course paper</div>
+      </div>
+      <div class="row">
+        <div><h3>Blockchain platforms for hospital records</h3>
+        <p>A comparative study of Ethereum, EOS and Skale. We deployed simplified hospital management systems on each testnet and compared cost, consensus, scalability, security and smart-contract support.</p>
+        <p class="stack">Ethereum / EOS / Skale / smart contracts</p></div>
+        <div class="tag2">Course paper</div>
+      </div>
+      <div class="row">
+        <div><h3>Web content analysis through automated scraping</h3>
+        <p>Scraped many websites to extract UI elements, colour palettes and fonts, then visualised the data to show current web design trends.</p>
+        <p class="stack">Python / web scraping / data visualisation</p></div>
+        <div class="tag2">Course project</div>
+      </div>
+      <div class="row">
+        <div><h3>Extending CPython with memory and input safety</h3>
+        <p>Research into adding deterministic memory management and safety guarantees to the CPython interpreter, with an ownership model like Rust's. It touches both the preprocessor and the interpreter.</p>
+        <p class="stack">C / CPython internals</p></div>
+        <div class="tag2">Research abstract</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="papers" aria-labelledby="h-pub">
+    <h2 id="h-pub">Papers</h2>
+    <p class="kicker">Three IEEE publications</p>
+    <div class="pubs">
+      <div class="pub"><div><strong>Shellcode generation: a resource-efficient approach using fine-tuned LLMs</strong><small>15th IEEE ICCCNT, June 2024. PEFT/LoRA on Mistral and Llama with a BLEU evaluation pipeline.</small></div><div class="metric">BLEU-1 0.8506</div></div>
+      <div class="pub"><div><strong>Kannada speech recognition with Whisper</strong><small>ICCCNT 2025. Fine-tuned OpenAI Whisper for Kannada.</small></div><div class="metric">WER 0.0958</div></div>
+      <div class="pub"><div><strong>DevSecOps: a comprehensive study and hands-on application for sustainability</strong><small>ICDMMESD, May 2024. Security scanning built into CI/CD on Kubernetes.</small></div><div class="metric">IEEE</div></div>
+    </div>
+  </section>
+
+  <section id="honours" aria-labelledby="h-hon">
+    <h2 id="h-hon">Honours and beyond code</h2>
+    <p class="kicker">Hackathons, exchange and teaching</p>
+    <div class="honours">
+      <div class="honour gold"><small>Aug 2024</small><h3>Platinum Medal, Japan World Youth Meeting</h3><p>Awarded by Japan's Ministry of Education, among delegates from 18 countries.</p></div>
+      <div class="honour gold"><small>Apr 2023</small><h3>1st place, GG Hackathon</h3><p>Hosted by the Forge Club at Amrita Vishwa Vidyapeetham.</p></div>
+      <div class="honour"><small>Student exchange</small><h3>Amrita to Ritsumeikan University</h3><p>Took part in the exchange programme between the two universities.</p></div>
+      <div class="honour"><small>Hackathon</small><h3>Tech Triumph 1.0</h3><p>Participated in this hackathon.</p></div>
+      <div class="honour"><small>Jan 2023 to now</small><h3>Educator, Make A Difference (MAD)</h3><p>Volunteer teacher with the MAD NGO, helping students learn.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-skills">
+    <h2 id="h-skills">Toolbox</h2>
+    <p class="kicker">What I reach for</p>
+    <div class="skills">
+      <div><h3>Languages</h3><p>Python, Java, C/C++, SQL. Data structures and algorithms.</p></div>
+      <div><h3>Backend and data</h3><p>REST APIs, Apache Kafka, Elasticsearch, microservices.</p></div>
+      <div><h3>Cloud</h3><p>AWS (EKS), GCP, Docker, Kubernetes, Linux, Jenkins, GitHub Actions.</p></div>
+      <div><h3>Testing</h3><p>pytest, Selenium, Xray and Jira test design, fuzz testing.</p></div>
+      <div><h3>AI</h3><p>PyTorch, Hugging Face, PEFT/LoRA, AI agents and coding assistants.</p></div>
+    </div>
+    <p style="margin:28px 0 0;color:var(--muted);font-size:15px">B.Tech in Computer Science and Engineering, Amrita Vishwa Vidyapeetham, Bengaluru, 2021 to 2025. Platinum Medal, Japan World Youth Meeting 2024.</p>
+  </section>
+
+  <section id="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact">Contact</h2>
+    <p class="kicker">Open to software engineering roles in Bengaluru and remote</p>
+    <div class="contact">
+      <div class="addr"><code id="mail">mkvn1322@gmail.com</code><button class="btn" id="copy" type="button">Copy email</button></div>
+      <p style="margin:0"><a href="https://linkedin.com/in/mohith-krishna-v" rel="noopener">linkedin.com/in/mohith-krishna-v</a> &nbsp;|&nbsp; <a href="https://github.com/Mohith2210" rel="noopener">github.com/Mohith2210</a></p>
+    </div>
+  </section>
+
+  <footer>Mohith Krishna V, Bengaluru. Numbers on this page come from my own work records.</footer>
+</div>
+
+<script>
+(function () {
+  var c = document.getElementById('rings'), x = c.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function css(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#2450f0'; }
+  function draw(t) {
+    var w = c.width, h = c.height, cx = w / 2, cy = h / 2;
+    x.clearRect(0, 0, w, h);
+    var sig = css('--signal'), line = css('--line');
+    x.lineWidth = 1; x.strokeStyle = line;
+    for (var i = 1; i <= 5; i++) { x.beginPath(); x.arc(cx, cy, i * 36, 0, 6.2832); x.stroke(); }
+    x.beginPath(); x.moveTo(cx, 8); x.lineTo(cx, h - 8); x.moveTo(8, cy); x.lineTo(w - 8, cy); x.stroke();
+    for (var k = 0; k < 3; k++) {
+      var p = ((t / 3200) + k / 3) % 1, r = p * 190;
+      x.globalAlpha = (1 - p) * 0.9; x.strokeStyle = sig; x.lineWidth = 2;
+      x.beginPath(); x.arc(cx, cy, r, 0, 6.2832); x.stroke();
+    }
+    x.globalAlpha = 1; x.fillStyle = sig;
+    x.beginPath(); x.arc(cx, cy, 7, 0, 6.2832); x.fill();
+    var nodes = [[0.28, 0.3], [0.74, 0.36], [0.62, 0.78], [0.2, 0.68]];
+    nodes.forEach(function (n) {
+      var nx = n[0] * w, ny = n[1] * h;
+      x.strokeStyle = line; x.lineWidth = 1; x.setLineDash([4, 5]);
+      x.beginPath(); x.moveTo(cx, cy); x.lineTo(nx, ny); x.stroke(); x.setLineDash([]);
+      x.fillStyle = css('--fg'); x.beginPath(); x.arc(nx, ny, 4, 0, 6.2832); x.fill();
+    });
+  }
+  function loop(t) { draw(t); if (!reduce) requestAnimationFrame(loop); }
+  draw(1600); if (!reduce) requestAnimationFrame(loop);
+  var btn = document.getElementById('copy'), mail = document.getElementById('mail');
+  btn.addEventListener('click', function () {
+    var ok = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy email'; }, 1600); };
+    function sel() { var r = document.createRange(); r.selectNodeContents(mail); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Press Ctrl+C'; }
+    try { navigator.clipboard.writeText(mail.textContent).then(ok, sel); } catch (e) { sel(); }
+  });
+})();
+</script>
+</body>
+</html>
